@@ -1,417 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Noé Fouotsa</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<style>
-  .about-section {
-    text-align: center;
-    padding: 50px 0;
-  }
-  .about-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  .about-section img {
-    width: 200px; /* Adjust the size as needed */
-    height: 200px;
-    border-radius: 50%; /* Makes the image round */
-    margin-bottom: 20px;
-  }
-  .about-section p {
-    color: #333;
-  }
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-  /* Additional CSS for Projects Section */
-.projects-section h2 {
-  margin-bottom: 40px;
-  font-size: 2.5rem;
-}
-.card {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Adds a subtle shadow around the card */
-}
-.card-img-top {
-  max-height: 180px; /* Adjust this value to fit the image properly in the card */
-  object-fit: cover; /* This makes sure the image covers the area properly */
-  transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
-}
-.card-img-top:hover {
-  transform: scale(1.1); /* Zoom effect on hover */
-}
-.card-body {
-  padding: 15px;
-}
-.card-title {
-  font-size: 1.25rem;
-}
-.card-text {
-  margin-bottom: 15px;
-}
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            padding-top: 70px;
+            background-color: #f8f9fa;
+        }
 
-/* Additional CSS for Skills Section */
-.skills-section h2 {
-  margin-bottom: 40px;
-  font-size: 2.5rem;
-}
-.skills-section .card {
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-.skills-section .card-img-top {
-  padding: 20px; /* Add padding around your images if needed */
-  background-color: #f8f9fa; /* Adjust the background color if your images have transparent areas */
-  height: 180px; /* Fixed height for consistency */
-  object-fit: contain; /* This will make sure the image is scaled properly within the container */
-}
-.skills-section .card-body {
-  padding: 15px;
-}
-.skills-section .card-title {
-  font-size: 1.25rem;
-  margin-bottom: 15px;
-}
-.skills-section .btn-outline-primary {
-  color: #007bff;
-  border-color: #007bff;
-}
-.skills-section .btn-outline-primary:hover {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-}
+        .container {
+            max-width: 1140px;
+        }
 
-/* Additional CSS for Contact Section */
-.contact-section {
-  padding: 50px 0;
-}
-.contact-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-}
-.contact-section p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-.social-icon {
-  width: 50px; /* Size of your icons */
-  margin-bottom: 10px;
-}
-/* Hover effect for icons */
-.social-icon:hover {
-  opacity: 0.7;
-}
-/* Style for links in the Contact section */
-.contact-section a {
-  color: #fff;
-  text-decoration: none; /* Removes underline from links */
-  display: inline-block; /* Allows for margin on the bottom */
-  margin-bottom: 10px;
-}
-.contact-section a:hover {
-  color: #ddd; /* Color when hovering over the link */
-}
+        .text-primary {
+            color: #007bff !important;
+        }
 
-/* CSS for Sticky Navbar */
-.navbar {
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adds a shadow for depth */
-}
+        /* Header and Navigation */
+        .navbar {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-/* Ensure padding is added to body to avoid content being hidden behind the navbar */
-body { 
-  padding-top: 56px; /* Adjust this value based on the height of your navbar */
-}
+        .navbar-nav .nav-link {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa;
+        }
 
-/* Style for navigation bar links */
-.navbar-nav .nav-link {
-  color: white;
-}
+        /* About Section */
+        .about-section {
+            background-color: #007bff;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
 
-.navbar-nav .nav-link:hover {
-  color: #f8f9fa; /* Slightly lighter white when hovering over links */
-}
+        .about-section img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
 
-/* Media query for responsive navbar collapsing */
-@media (max-width: 992px) {
-  .navbar-collapse {
-    background-color: #343a40; /* Same as navbar color for seamless look */
-  }
-}
+        /* Projects and Services Section */
+        .projects-section,
+        .ml-projects,
+        .services-section {
+            padding: 60px 0;
+        }
 
-</style>
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            height: 100%;
+        }
 
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-img-top {
+            max-height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: #343a40;
+            color: white;
+            padding: 60px 0;
+        }
+
+        .contact-section .social-icon {
+            width: 40px;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .contact-section .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .contact-form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        .btn-primary {
+            border-radius: 0;
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .navbar-collapse {
+                background-color: #343a40;
+            }
+
+            .about-section img {
+                width: 140px;
+                height: 140px;
+            }
+
+            .card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<section id="about" class="about-section">
-  <div class="container">
-    <h2>About</h2>
-    <img src="images/about/1.jpg" alt="About Me">
-    <p>I am a data analyt/scientist, with more than five years of experience. I help companies to derive actionable insights from messy data, through three actions: First design and automate effective data pipelines for KPIs measurement; secondly build dashboards to easily access and monitor KPIs; thirdly, build predictive models to support operational and strategic decision making. Please find below, a selected sample of former projects and impacts across diverse sectors, namely: banking, healthcare, retail, ecommerce, marketing, and agriculture.</p>
-    <!-- Add this line for the CV link -->
-    <a href="https://drive.google.com/file/d/1GLLtelBtP8AmLurygG33Zbp_DC57kG3p/view?usp=drive_link" class="btn btn-primary mt-3">Download CV</a>
-  </div>
-</section>
+    <!-- Sticky Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Noé Fouotsa</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Visualization Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ml-projects">ML Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<!-- Projects Section -->
-<section id="projects" class="projects-section bg-light">
-  <div class="container">
-    <h2 class="text-center">Visualization Projects</h2>
-    <div class="row">
-      <!-- Your existing projects go here -->
-      <!-- Project 1 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/loan.gif" class="card-img-top" alt="Smart Lending: Enhancing Financial Decisions with Data-Driven Insights">
-          <div class="card-body">
-            <h5 class="card-title">Bank Loan Portfolio Analysis and Reporting</h5>
-            <p class="card-text"></p>
-            <p class="card-text">Tools: Python, Excel, SQL, Power BI</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiZDA1YmZiNzMtZGY5NS00NTJiLTgxYmItNjUyOGVmYWMxZWFkIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9" class="btn btn-primary">Visualization</a>
-            <a href="https://github.com/noe2019/Smart-Lending" class="btn btn-secondary">Github</a>
-          </div>
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About Me</h2>
+            <img src="images/about/1.jpg" alt="Noé Fouotsa">
+            <p>
+                I am a Data Analyst/Scientist with over five years of experience, specializing in deriving actionable insights from data.
+                My expertise includes designing automated data pipelines, creating interactive dashboards, and building predictive models. 
+                Explore my selected projects across various sectors, including banking, healthcare, retail, e-commerce, marketing, and agriculture.
+            </p>
+            <a href="https://drive.google.com/file/d/1GLLtelBtP8AmLurygG33Zbp_DC57kG3p/view?usp=drive_link"
+                class="btn btn-primary mt-3">Download CV</a>
         </div>
-      </div>
-      <!-- Project 2 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/hr.gif" class="card-img-top" alt="Employee Attrition and Satisfaction Insights">
-          <div class="card-body">
-            <h5 class="card-title">Employees Job Satisfaction</h5>
-            <p class="card-text"></p>
-            <p class="card-text">Tools: Excel, SQL, Tableau</p>
-            <a href="https://public.tableau.com/app/profile/noe.careme.fouotsa.manfouo/viz/HRAnalytics_17211814963320/HRAnalyticsDashboard" class="btn btn-primary">Visualization</a>
-            <a href="https://github.com/noe2019/Employees-Attrition-Analysis" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
-      <!-- Project 3 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/cc.gif" class="card-img-top" alt="Credit Cards Complaints: Enhancing Customer Service Efficiency">
-          <div class="card-body">
-            <h5 class="card-title">Credit Cards Complaints</h5>
-            <p class="card-text"></p>
-            <p class="card-text">Tools: Excel, SQL, Tableau</p>
-            <a href="https://public.tableau.com/app/profile/noe.careme.fouotsa.manfouo/viz/CreditCardComplaints_17220260717800/CreditCardComplaints" class="btn btn-secondary">Visualization</a>
-            <a href="https://github.com/noe2019/Credit-Complaint-Analysis/tree/main" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <!-- Project 4 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/ca.gif" class="card-img-top" alt="Decoding Customer Departures">
-          <div class="card-body">
-            <h5 class="card-title">Decoding Customer Departures</h5>
-            <p class="card-text"></p>
-            <p class="card-text">Tools: Python, Excel, SQL, Power BI</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiYTQ4ODNhNTItMWVkZC00ZjQ1LTgzYjYtNDIwOWI0ZjZkOWIxIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9" class="btn btn-primary">Visualization</a>
-            <a href="https://github.com/noe2019/Telecom-Churn-Analysis-And-Prediction" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
-      <!-- Project 2 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/ps.gif" class="card-img-top" alt="Employee Attrition and Satisfaction Insights">
-          <div class="card-body">
-            <h5 class="card-title">Pizzas sales analysis</h5>
-            <p class="card-text"></p>
-            <p class="card-text">Tools: Excel, SQL, Tableau</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiZmFmNGZlOTMtZDdkNC00MWRiLWIzODEtNmY5MmNkY2E1NGM5IiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9&embedImagePlaceholder=true" class="btn btn-primary">Visualization</a>
-            <a href="https://github.com/noe2019/Pizza-Sales-Analysis" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
-      <!-- Project 3 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/tb.gif" class="card-img-top" alt="Credit Cards Complaints: Enhancing Customer Service Efficiency">
-          <div class="card-body">
-            <h5 class="card-title">Bikes renting Insights </h5>
-            <p class="card-text"></p>
-            <p class="card-text">Tools: Excel, SQL, Tableau</p>
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiODZlMjMyZjgtYmFhMy00ZWI2LWFmNGQtYjFmZWUxMGFhNTA4IiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9" class="btn btn-secondary">Visualization</a>
-            <a href="https://github.com/noe2019/Bike-Renting-Insights/tree/main" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Visualization Projects Section -->
+    <section id="projects" class="projects-section bg-light">
+        <div class="container">
+            <h2 class="text-center">Visualization Projects</h2>
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="images/projects/loan.gif" class="card-img-top"
+                            alt="Bank Loan Portfolio Analysis and Reporting">
+                        <div class="card-body">
+                            <h5 class="card-title">Bank Loan Portfolio Analysis and Reporting</h5>
+                            <p class="card-text">Tools: Python, Excel, SQL, Power BI</p>
+                            <div class="d-flex">
+                                <a href="https://app.powerbi.com/view?r=eyJrIjoiZDA1YmZiNzMtZGY5NS00NTJiLTgxYmItNjUyOGVmYWMxZWFkIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9"
+                                    class="btn btn-primary mr-2">Visualization</a>
+                                <a href="https://github.com/noe2019/Smart-Lending" class="btn btn-secondary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="images/projects/hr.gif" class="card-img-top" alt="Employee Job Satisfaction">
+                        <div class="card-body">
+                            <h5 class="card-title">Employees Job Satisfaction</h5>
+                            <p class="card-text">Tools: Excel, SQL, Tableau</p>
+                            <div class="d-flex">
+                                <a href="https://public.tableau.com/app/profile/noe.careme.fouotsa.manfouo/viz/HRAnalytics_17211814963320/HRAnalyticsDashboard"
+                                    class="btn btn-primary mr-2">Visualization</a>
+                                <a href="https://github.com/noe2019/Employees-Attrition-Analysis"
+                                    class="btn btn-secondary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="images/projects/cc.gif" class="card-img-top" alt="Credit Card Complaints Analysis">
+                        <div class="card-body">
+                            <h5 class="card-title">Credit Cards Complaints</h5>
+                            <p class="card-text">Tools: Excel, SQL, Tableau</p>
+                            <div class="d-flex">
+                                <a href="https://public.tableau.com/app/profile/noe.careme.fouotsa.manfouo/viz/CreditCardComplaints_17220260717800/CreditCardComplaints"
+                                    class="btn btn-primary mr-2">Visualization</a>
+                                <a href="https://github.com/noe2019/Credit-Complaint-Analysis/tree/main"
+                                    class="btn btn-secondary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!-- New Section for Python and Machine Learning Projects -->
-<section id="ml-projects" class="projects-section bg-white">
-  <div class="container">
-    <h2 class="text-center">Python and Machine Learning Projects</h2>
-    <div class="row">
-      <!-- Project 1 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/dc1 (2).webp" class="card-img-top" alt="Project 1">
-          <div class="card-body">
-            <h5 class="card-title">Diabetes complications sequences</h5>
-            <p class="card-text"></p>
-            <a href="https://drive.google.com/file/d/1SbSDD4WOGipqZzSe8JRCV84cHnl6hWq6/view?usp=sharing" class="btn btn-primary">Poster</a>
-            <a href="https://github.com/noe2019/T2DM_Complications_Trajectories" class="btn btn-secondary">Github</a>
-          </div>
+                <!-- Project 4 -->
+                <div class="col-md-4 mb-4">
+                  <div class="card">
+                      <img src="images/projects/ca.gif" class="card-img-top"
+                          alt="Churn Analysis">
+                      <div class="card-body">
+                          <h5 class="card-title">Churn Analysis</h5>
+                          <p class="card-text">Tools: Python, Excel, SQL, Power BI</p>
+                          <div class="d-flex">
+                              <a href="https://app.powerbi.com/view?r=eyJrIjoiYTQ4ODNhNTItMWVkZC00ZjQ1LTgzYjYtNDIwOWI0ZjZkOWIxIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9"
+                                  class="btn btn-primary mr-2">Visualization</a>
+                              <a href="https://github.com/noe2019/Telecom-Churn-Analysis-And-Prediction" class="btn btn-secondary">Github</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
         </div>
-      </div>
-      <!-- Project 2 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/ed1 (2).webp" class="card-img-top" alt="Project 2">
-          <div class="card-body">
-            <h5 class="card-title">Early diabetes: Key predictive factors</h5>
-            <p class="card-text"></p>
-            <a href="https://www.researchgate.net/publication/379147208_Journal_of_Racial_and_Ethnic_Health_Disparities" class="btn btn-primary">Article</a>
-            <a href="https://github.com/noe2019/Key-predictors_of_Early_Diabetes" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
-      <!-- Project 3 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/stroke (1).webp" class="card-img-top" alt="Project 3">
-          <div class="card-body">
-            <h5 class="card-title">Stroke: Key predictive factors</h5>
-            <p class="card-text">Description of the machine learning project.</p>
-            <a href="#" class="btn btn-primary">Article</a>
-            <a href="https://github.com/noe2019/Stroke_Prediction" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
+    </section>
 
-      <!-- Project 4 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/agri (2).webp" class="card-img-top" alt="Project 1">
-          <div class="card-body">
-            <h5 class="card-title">Insights on food security with Satellite data</h5>
-            <p class="card-text"></p>
-              <a href="https://acsess.onlinelibrary.wiley.com/doi/epdf/10.1002/agg2.20460" class="btn btn-primary">Article 1</a>
-            <a href="https://www.researchgate.net/publication/365322669_Investigating_the_effects_of_drought_and_lockdowns_on_smallholder_and_commercial_farming_agricultural_production_in_KwaZulu-Natal_using_remotely_sensed_data_Investigating_the_effects_of_drought_and_lo" class="btn btn-secondary">Article 2</a>
+    <!-- ML Projects Section -->
+    <section id="ml-projects" class="projects-section bg-white">
+        <div class="container">
+            <h2 class="text-center">Python and Machine Learning Projects</h2>
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="images/projects/dc1 (2).webp" class="card-img-top"
+                            alt="Diabetes Complications Sequences">
+                        <div class="card-body">
+                            <h5 class="card-title">Diabetes Complications Sequences</h5>
+                            <div class="d-flex">
+                                <a href="https://drive.google.com/file/d/1SbSDD4WOGipqZzSe8JRCV84cHnl6hWq6/view?usp=sharing"
+                                    class="btn btn-primary mr-2">Poster</a>
+                                <a href="https://github.com/noe2019/T2DM_Complications_Trajectories"
+                                    class="btn btn-secondary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="images/projects/ed1 (2).webp" class="card-img-top" alt="Early Diabetes Predictors">
+                        <div class="card-body">
+                            <h5 class="card-title">Early Diabetes: Key Predictive Factors</h5>
+                            <div class="d-flex">
+                                <a href="https://www.researchgate.net/publication/379147208_Journal_of_Racial_and_Ethnic_Health_Disparities"
+                                    class="btn btn-primary mr-2">Article</a>
+                                <a href="https://github.com/noe2019/Key-predictors_of_Early_Diabetes"
+                                    class="btn btn-secondary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="col-md-4 mb-4">
+                  <div class="card">
+                    <img src="images/projects/inv (2).webp" class="card-img-top" alt="Project 2">
+                    <div class="card-body">
+                      <h5 class="card-title">Leveraging Satellite data for Invasive species mapping</h5>
+                      <div class="d-flex">
+                          <a href="https://drive.google.com/file/d/1pqSl5teMe3puq1RqqU6gwzns7rLO9H9f/view?usp=drive_link"
+                              class="btn btn-primary mr-2">Article</a>
+                          <a href="https://github.com/noe2019/Key-predictors_of_Early_Diabetes"
+                              class="btn btn-secondary">Github</a>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-      </div>
-      <!-- Project 5 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/inv (2).webp" class="card-img-top" alt="Project 2">
-          <div class="card-body">
-            <h5 class="card-title">Leveraging Satellite data for Invasive species mapping</h5>
-            <p class="card-text"></p>
-            <a href="https://drive.google.com/file/d/1pqSl5teMe3puq1RqqU6gwzns7rLO9H9f/view?usp=drive_link" class="btn btn-primary">Article</a>
-            <a href="https://github.com/noe2019/Invasive_Alien_trees_Mapping" class="btn btn-secondary">Github</a>
+               <!-- Project 4 -->
+               <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/projects/agri (2).webp" class="card-img-top"
+                        alt="Insights on Food Security with Satellite Data">
+                    <div class="card-body">
+                        <h5 class="card-title">Insights on Food Security with Satellite Data</h5>
+                        <div class="d-flex">
+                            <a href="https://acsess.onlinelibrary.wiley.com/doi/epdf/10.1002/agg2.20460"
+                                class="btn btn-primary mr-2">Article 1</a>
+                            <a href="https://www.researchgate.net/publication/365322669_Investigating_the_effects_of_drought_and_lockdowns_on_smallholder_and_commercial_farming_agricultural_production_in_KwaZulu-Natal_using_remotely_sensed_data_Investigating_the_effects_of_drought_and_lo"
+                                class="btn btn-secondary">Article 2</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="images/projects/streamflow.webp" class="card-img-top" alt="Storage Forecasting">
+                    <div class="card-body">
+                        <h5 class="card-title">Storage Forecasting</h5>
+                        <div class="d-flex">
+                            <a href="https://drive.google.com/file/d/1IUm6gZS1sqg7qPlrQwD0KnH2vtpy5e_-/view?usp=sharing"
+                                class="btn btn-primary mr-2">Article</a>
+                            <a href="https://github.com/noe2019/Lake_storage_prediction"
+                                class="btn btn-secondary">Github</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Project 6 -->
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img src="images/projects/stroke (1).webp" class="card-img-top" alt="Stroke: Key predictive factors">
+                <div class="card-body">
+                  <h5 class="card-title">Stroke: Key predictive factors</h5>
+                  <div class="d-flex">
+                      <a href="#"
+                          class="btn btn-primary mr-2">Article</a>
+                      <a href="https://github.com/noe2019/Stroke_Prediction"
+                          class="btn btn-secondary">Github</a>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-      <!-- Project 6 -->
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="images/projects/streamflow.webp" class="card-img-top" alt="Project 3">
-          <div class="card-body">
-            <h5 class="card-title">Storage forecasting</h5>
-            <p class="card-text"></p>
-            <a href="https://drive.google.com/file/d/1IUm6gZS1sqg7qPlrQwD0KnH2vtpy5e_-/view?usp=sharing" class="btn btn-primary">Article</a>
-            <a href="https://github.com/noe2019/Lake_storage_prediction" class="btn btn-secondary">Github</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Contact Me Section -->
-<section id="contact" class="contact-section text-center text-white bg-dark">
-  <div class="container">
-    <h2>Contact Me</h2>
-    <div class="row">
-      <div class="col-lg-6">
-        <p><i class="fas fa-envelope"></i> noecaremee@gmail.com</p>
-      </div>
-      <div class="col-lg-6">
-        <p><i class="fas fa-phone"></i> +14183721711</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-2 col-md-4 mb-4">
-        <a href="https://www.linkedin.com/in/noefouotsa/" target="_blank">
-          <img src="icons/linkedin.png" alt="LinkedIn" class="social-icon">
-          LinkedIn
-        </a>
-      </div>
-      <div class="col-lg-2 col-md-4 mb-4">
-        <a href="https://x.com/NoeFouotsa" target="_blank">
-          <img src="icons/x" alt="X" class="social-icon">
-          X
-        </a>
-      </div>
-      <div class="col-lg-2 col-md-4 mb-4">
-        <a href="https://github.com/noe2019" target="_blank">
-          <img src="icons/github.png" alt="GitHub" class="social-icon">
-          GitHub
-        </a>
-      </div>
-      <div class="col-lg-2 col-md-4 mb-4">
-        <a href="https://medium.com/@noe.fouotsa" target="_blank">
-          <img src="icons/medium.png" alt="Medium" class="social-icon">
-          Medium
-        </a>
-      </div>
-      <div class="col-lg-2 col-md-4 mb-4">
-        <a href="https://www.youtube.com/@No%C3%A9Fouotsa" target="_blank">
-          <img src="icons/youtube.png" alt="YouTube" class="social-icon">
-          YouTube
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- Sticky Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#home">Portfolio</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#projects">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#ml-projects">ML Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#skills">Skills</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="text-center">Services</h2>
+            <div class="row">
+                <div class="col-md-4 service">
+                    <img src="icons/Data-Pipeline-And-Its-Evolution.webp" alt="Data Pipeline Automation" class="img-fluid">
+                    <h4>Data Pipeline Automation</h4>
+                    <p>Design and automate robust data pipelines to ensure reliable and efficient data flow for your business.</p>
+                </div>
+                <div class="col-md-4 service">
+                    <img src="icons/Dashboard-development.jpg" alt="Dashboard Development" class="img-fluid">
+                    <h4>Dashboard Development</h4>
+                    <p>Create intuitive and interactive dashboards for easy KPI tracking and business intelligence.</p>
+                </div>
+                <div class="col-md-4 service">
+                    <img src="icons/predictive.jpg" alt="Predictive Modeling" class="img-fluid">
+                    <h4>Predictive Modeling</h4>
+                    <p>Build predictive models to forecast trends and support data-driven decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Bootstrap JS and dependencies (jQuery and Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Contact Me Section -->
+    <section id="contact" class="contact-section text-center text-white bg-dark">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p><i class="fas fa-envelope"></i> noecaremee@gmail.com</p>
+                </div>
+                <div class="col-lg-6">
+                    <p><i class="fas fa-phone"></i> +14183721711</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form mt-4">
+                <form action="https://formsubmit.co/noecaremee@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label for="name" class="text-dark">Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="text-dark">Email Address *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="text-dark">Message *</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+
+            <!-- Social Links -->
+            <div class="row mt-4">
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <a href="https://www.linkedin.com/in/noefouotsa/" target="_blank">
+                        <img src="icons/linkedin.png" alt="LinkedIn" class="social-icon">
+                        LinkedIn
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <a href="https://x.com/NoeFouotsa" target="_blank">
+                        <img src="icons/x" alt="X" class="social-icon">
+                        X
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <a href="https://github.com/noe2019" target="_blank">
+                        <img src="icons/github.png" alt="GitHub" class="social-icon">
+                        GitHub
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <a href="https://medium.com/@noe.fouotsa" target="_blank">
+                        <img src="icons/medium.png" alt="Medium" class="social-icon">
+                        Medium
+                    </a>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <a href="https://www.youtube.com/@No%C3%A9Fouotsa" target="_blank">
+                        <img src="icons/youtube.png" alt="YouTube" class="social-icon">
+                        YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Noé Fouotsa. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies (jQuery and Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
