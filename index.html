@@ -1,865 +1,688 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Noé Fouotsa</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Noé Fouotsa – Data Scientist Portfolio</title>
+    <meta name="description" content="Portfolio of Noé Carème Fouotsa, Data Scientist with 5+ years of experience in machine learning, data pipelines, predictive modeling, and dashboards.">
+    <meta name="author" content="Noé Carème Fouotsa">
+    <meta property="og:title" content="Noé Fouotsa – Data Scientist Portfolio">
+    <meta property="og:description" content="Data Scientist specializing in predictive modeling, dashboards, and data pipelines across healthcare, food security, banking and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://noe2019.github.io/DA-Portfolio-Website/">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <style>
-        /* General Styles */
+        :root {
+            --primary: #0d6efd;
+            --primary-dark: #0a58ca;
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --surface-alt: #f0f4ff;
+            --text: #212529;
+            --text-muted: #6c757d;
+            --border: rgba(0,0,0,.1);
+            --card-shadow: 0 4px 14px rgba(0,0,0,.08);
+            --card-shadow-hover: 0 14px 30px rgba(0,0,0,.14);
+            --navbar-bg: #212529;
+        }
+        [data-theme="dark"] {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface-alt: #1e2235;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,.1);
+            --card-shadow: 0 4px 14px rgba(0,0,0,.4);
+            --card-shadow-hover: 0 14px 30px rgba(0,0,0,.5);
+            --navbar-bg: #0d1117;
+        }
+
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Arial', sans-serif;
-            padding-top: 70px;
-            background-color: #f8f9fa;
+            font-family: 'Inter', Arial, sans-serif;
+            padding-top: 66px;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color .3s, color .3s;
         }
 
-        .container {
-            max-width: 1140px;
+        /* Navbar */
+        .navbar { background-color: var(--navbar-bg) !important; box-shadow: 0 2px 10px rgba(0,0,0,.3); }
+        .navbar-nav .nav-link { color: rgba(255,255,255,.8) !important; font-weight: 600; font-size: .9rem; padding: .5rem .65rem; transition: color .2s; }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: var(--primary) !important; }
+        #darkToggle {
+            background: none; border: 1px solid rgba(255,255,255,.35); color: rgba(255,255,255,.8);
+            border-radius: 20px; padding: 4px 12px; font-size: .85rem; cursor: pointer; transition: all .2s;
         }
+        #darkToggle:hover { background: rgba(255,255,255,.1); color: #fff; }
 
-        .text-primary {
-            color: #007bff !important;
-        }
-
-        /* Header and Navigation */
-        .navbar {
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .navbar-nav .nav-link {
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #f8f9fa;
-        }
-
-        /* About Section */
+        /* Hero */
         .about-section {
-            background-color: #007bff;
-            color: white;
-            padding: 80px 0;
-            text-align: center;
+            background: linear-gradient(135deg, #0d6efd 0%, #0a3d8f 100%);
+            color: white; padding: 90px 0 80px; text-align: center;
         }
-
+        .about-section h1 { font-size: 2.4rem; font-weight: 700; }
+        .about-section .subtitle { font-size: 1.1rem; opacity: .88; margin-bottom: 1rem; }
+        .about-section p.bio { max-width: 760px; margin: 0 auto 2rem; line-height: 1.8; opacity: .93; }
         .about-section img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            object-fit: cover;
+            width: 170px; height: 170px; border-radius: 50%; margin-bottom: 22px;
+            object-fit: cover; border: 4px solid rgba(255,255,255,.55);
+            box-shadow: 0 10px 28px rgba(0,0,0,.25);
+        }
+        .hero-badges .badge {
+            font-size: .8rem; padding: 6px 12px; border-radius: 20px;
+            background: rgba(255,255,255,.2); color: #fff; margin: 3px;
         }
 
-        /* Projects and Services Section */
-        .projects-section,
-        .ml-projects,
-        .services-section {
-            padding: 60px 0;
-        }
+        /* Stats */
+        .stats-section { background: var(--surface); padding: 56px 0; border-bottom: 1px solid var(--border); }
+        .stat-card { text-align: center; padding: 24px 16px; }
+        .stat-number { font-size: 3rem; font-weight: 700; color: var(--primary); line-height: 1; }
+        .stat-label { font-size: .9rem; color: var(--text-muted); margin-top: 6px; font-weight: 500; }
 
-        .card {
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out;
-            height: 100%;
+        /* Section headings */
+        .section-heading {
+            font-weight: 700; color: var(--text); margin-bottom: 2.5rem;
+            position: relative; display: inline-block;
         }
+        .section-heading::after {
+            content: ''; display: block; width: 48px; height: 4px;
+            background: var(--primary); border-radius: 2px; margin: .5rem auto 0;
+        }
+        .section-tag { font-size: .75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--primary); margin-bottom: .5rem; }
 
-        .card:hover {
-            transform: scale(1.05);
-        }
+        /* Cards */
+        .projects-section, .services-section { padding: 72px 0; }
+        .card { border: none; background-color: var(--surface); box-shadow: var(--card-shadow); transition: transform .25s, box-shadow .25s; height: 100%; }
+        .card:hover { transform: translateY(-6px); box-shadow: var(--card-shadow-hover); }
+        .card-img-top { height: 178px; object-fit: cover; }
+        .card-body { display: flex; flex-direction: column; justify-content: space-between; color: var(--text); }
+        .card-title { font-weight: 700; font-size: .98rem; }
+        .card p.small, .card .card-text { color: var(--text-muted); }
+        .badge-wip { font-size: .7rem; background: #ffc107; color: #000; border-radius: 10px; padding: 3px 8px; }
 
-        .card-img-top {
-            max-height: 180px;
-            object-fit: cover;
-        }
+        /* Skills */
+        .skills-section { padding: 72px 0; background-color: var(--surface); }
+        .skill-icon { font-size: 2.4rem; color: var(--primary); margin-bottom: .5rem; }
 
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        /* Services */
+        .service-box {
+            background-color: var(--surface); padding: 28px; border-radius: 12px;
+            box-shadow: var(--card-shadow); transition: background-color .3s, transform .25s, box-shadow .25s; height: 100%;
         }
+        .service-box:hover { background-color: var(--surface-alt); transform: translateY(-4px); box-shadow: var(--card-shadow-hover); }
+        .service-box h4 { font-weight: 700; font-size: 1rem; color: var(--text); }
+        .service-box p { color: var(--text-muted); }
 
-        /* Contact Section */
-        .contact-section {
-            background-color: #343a40;
-            color: white;
-            padding: 60px 0;
-        }
+        /* Publications */
+        .publications-section { padding: 72px 0; background-color: var(--bg); }
+        .publications-section ol li { margin-bottom: 1rem; line-height: 1.75; color: var(--text); }
+        .publications-section a { color: var(--primary); }
 
-        .contact-section .social-icon {
-            width: 40px;
-            margin-bottom: 10px;
-            transition: transform 0.2s ease-in-out;
-        }
+        /* Blog */
+        .blog-section { padding: 72px 0; background-color: var(--surface); }
+        .blog-cat { font-size: .72rem; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; color: var(--primary); }
+        .blog-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+        .blog-date { font-size: .8rem; color: var(--text-muted); }
 
-        .contact-section .social-icon:hover {
-            transform: scale(1.2);
-        }
+        /* Testimonials */
+        .testimonials-section { padding: 72px 0; background-color: var(--bg); }
+        .testimonial-card { background: var(--surface); border-radius: 12px; padding: 28px; box-shadow: var(--card-shadow); height: 100%; }
+        .testimonial-card .quote-icon { font-size: 2.5rem; color: var(--primary); opacity: .25; line-height: 1; margin-bottom: 8px; }
+        .testimonial-card p { color: var(--text-muted); font-style: italic; line-height: 1.7; }
+        .testimonial-card .author { font-weight: 700; color: var(--text); font-style: normal; }
+        .testimonial-card .author-role { font-size: .85rem; color: var(--text-muted); }
+        .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1rem; }
 
-        .contact-form {
-            background-color: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+        /* Contact */
+        .contact-section { background-color: #1a1d27; color: white; padding: 72px 0; }
+        .contact-section a { color: #94a3b8; text-decoration: none; transition: color .2s; }
+        .contact-section a:hover { color: #fff; }
+        .contact-section .section-heading { color: white; }
+        .contact-form { background-color: var(--surface); padding: 36px; border-radius: 14px; box-shadow: 0 4px 20px rgba(0,0,0,.25); text-align: left; }
+        .contact-form label { color: var(--text); font-weight: 500; }
+        .form-control { border-radius: 8px; background-color: var(--bg); color: var(--text); border-color: var(--border); }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 .2rem rgba(13,110,253,.2); background-color: var(--bg); color: var(--text); }
 
-        .form-control {
-            border-radius: 0;
-        }
-
-        .btn-primary {
-            border-radius: 0;
-            background-color: #007bff;
-            border: none;
-            padding: 10px 20px;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
+        .social-link { display: inline-flex; flex-direction: column; align-items: center; color: #94a3b8; transition: color .2s, transform .2s; text-decoration: none; font-size: .82rem; }
+        .social-link i { font-size: 1.8rem; margin-bottom: 4px; }
+        .social-link:hover { color: #fff; transform: translateY(-4px); }
 
         /* Footer */
-        footer {
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-        }
+        footer { background-color: #07090e; color: #64748b; text-align: center; padding: 22px 0; font-size: .88rem; }
 
-        /* Service Box Styles */
-        .service-box {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease;
-            height: 100%;
+        /* Scroll-to-top */
+        #scrollToTop {
+            position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px;
+            border-radius: 50%; background: var(--primary); color: #fff; border: none;
+            font-size: 1rem; display: none; align-items: center; justify-content: center;
+            box-shadow: 0 4px 14px rgba(13,110,253,.4); cursor: pointer; transition: background .2s, transform .2s; z-index: 999;
         }
+        #scrollToTop:hover { background: var(--primary-dark); transform: translateY(-3px); }
+        #scrollToTop.visible { display: flex; }
 
-        .service-box:hover {
-            background-color: #f0f0f0;
-        }
+        .btn-primary { background-color: var(--primary); border: none; border-radius: 7px; padding: 9px 20px; font-weight: 600; }
+        .btn-primary:hover { background-color: var(--primary-dark); }
+        .bg-section { background-color: var(--bg); }
+        .bg-surface { background-color: var(--surface); }
 
-        /* Publications Section */
-        .publications-section {
-            padding: 60px 0;
-            background-color: #f8f9fa;
-        }
-
-        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .navbar-collapse {
-                background-color: #343a40;
-            }
-
-            .about-section img {
-                width: 140px;
-                height: 140px;
-            }
-
-            .card {
-                margin-bottom: 20px;
-            }
+            .about-section { padding: 60px 0 50px; }
+            .about-section h1 { font-size: 1.75rem; }
+            .about-section img { width: 130px; height: 130px; }
+            .stat-number { font-size: 2.2rem; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Sticky Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#home">Noé Fouotsa</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#healthcare">Healthcare</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#fs">Food Security</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#banking">Banking</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#marketing">Marketing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pbi">Power BI</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#publications">Publications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2>About Me</h2>
-            <img src="images/about/Noé.png" alt="Noé Fouotsa">
-            <p>
-                I am a Data Scientist, with more than five years of experience. I help organizations to derive actionable insights from messy data, through three actions: First design and automate effective data pipelines for KPIs measurement; secondly build and deploy predictive models to support operational and strategic decision making; thirdly build dashboards to easily access and monitor KPIs. Please find below, a selected sample of former projects.
-            </p>
-        </div>
-    </section>
-
-   <!-- ML Projects Section -->
-<section id="healthcare" class="projects-section bg-white">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-        <h2 class="text-center">Healthcare</h2>
-        <div class="row">
-            <!-- Project 1 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="images/projects/img.png" class="card-img-top" alt="AI Doctor Project">
-                    <div class="card-body">
-                        <h5 class="card-title">AI Doctor</h5>
-                        <p>The aim of this tool is to diagnose patients and provide medication and lifestyle recommendations.</p>
-                        <p class="card-text"><strong>Tools:</strong> Python, Flask, Heroku</p>
-                        <div class="d-flex">
-                            <a href="https://aidoctor-227700301703.herokuapp.com/" class="btn btn-primary mr-2">Web App</a>
-                            <a href="https://github.com/noe2019/Medecine-Recommender" class="btn btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="images/projects/ed1 (2).webp" class="card-img-top" alt="Early Diabetes Predictors Project">
-                    <div class="card-body">
-                        <h5 class="card-title">Multiple disease prediction</h5>
-                        <p>This project develops and deploys machine learning models for early and normal diabetes, as well as heart and parkinson disease predictions. The outputs are displayed in two user-friendly web apps.</p>
-                        <p class="card-text"><strong>Tools:</strong> Python, scikit-learn, TPOT, Docker, Heroku, Streamlit cloud.</p>
-                        <div class="d-flex flex-wrap">
-                            <a href="https://et2dmapp.streamlit.app/" class="btn btn-primary mr-2 mb-2">Web App1</a>
-                            <a href="https://multiple-disease-prediction-aws-app-6gyzynvubis3ibywjrxj5x.streamlit.app/" class="btn btn-primary mr-2 mb-2">Web App2</a>
-                            <a href="https://www.researchgate.net/publication/379147208_Journal_of_Racial_and_Ethnic_Health_Disparities" class="btn btn-secondary mr-2 mb-2">Article</a>
-                            <a href="https://github.com/noe2019/Key-predictors_of_Early_Diabetes" class="btn btn-secondary mb-2">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="images/projects/dc1 (2).webp" class="card-img-top" alt="Diabetes Complications Sequences Project">
-                    <div class="card-body">
-                        <h5 class="card-title">Diabetes Complications Sequences</h5>
-                        <p>Analysis and visualization of Type 2 Diabetes complications sequences over time.</p>
-                        <p class="card-text"><strong>Tools:</strong> Python, Graph Analysis, Visualization Libraries</p>
-                        <div class="d-flex">
-                            <a href="https://drive.google.com/file/d/1SbSDD4WOGipqZzSe8JRCV84cHnl6hWq6/view?usp=sharing" class="btn btn-primary mr-2">Poster</a>
-                            <a href="https://github.com/noe2019/T2DM_Complications_Trajectories" class="btn btn-secondary">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <a class="navbar-brand fw-bold text-white" href="#about">Noé Fouotsa</a>
+        <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+            <button id="darkToggleMobile" style="background:none;border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.8);border-radius:20px;padding:4px 10px;font-size:.85rem;cursor:pointer;" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         </div>
-    </section>
-
-    <section id="fs" class="projects-section bg-white">
-        <div class="container">
-            <h2 class="text-center">Food security</h2>
-            <div class="row">
-                <!-- Project 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/agri (2).webp" class="card-img-top" alt="Insights on Food Security">
-                        <div class="card-body">
-                            <h5 class="card-title">Insights on Food Security with Satellite Data</h5>
-                            <p>Exploring the use of satellite data to monitor and improve food security, focusing on the impacts of drought and lockdowns on farming.</p>
-                            <div class="d-flex flex-wrap">
-                                <a href="https://acsess.onlinelibrary.wiley.com/doi/epdf/10.1002/agg2.20460" class="btn btn-primary mr-2 mb-2">Article 1</a>
-                                <a href="https://www.researchgate.net/publication/365322669_Investigating_the_effects_of_drought_and_lockdowns_on_smallholder_and_commercial_farming_agricultural_production_in_KwaZulu-Natal_using_remotely_sensed_data_Investigating_the_effects_of_drought_and_lo" class="btn btn-secondary mb-2">Article 2</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/inv (2).webp" class="card-img-top" alt="Satellite Data for Invasive Species Mapping">
-                        <div class="card-body">
-                            <h5 class="card-title">Leveraging Satellite Data for Invasive Species Mapping</h5>
-                            <p>Utilizing satellite imagery to identify and map the spread of invasive plant species for environmental conservation.</p>
-                            <div class="d-flex">
-                                <a href="https://drive.google.com/file/d/1pqSl5teMe3puq1RqqU6gwzns7rLO9H9f/view?usp=drive_link" class="btn btn-primary mr-2">Article</a>
-                                <a href="https://github.com/noe2019/Geospatial_Data_Collection" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/streamflow.webp" class="card-img-top" alt="Storage Forecasting Project">
-                        <div class="card-body">
-                            <h5 class="card-title">Storage Forecasting</h5>
-                            <p>Developing models to predict water storage levels in reservoirs using historical data and machine learning techniques.</p>
-                            <div class="d-flex">
-                                <a href="https://drive.google.com/file/d/1IUm6gZS1sqg7qPlrQwD0KnH2vtpy5e_-/view?usp=sharing" class="btn btn-primary mr-2">Article</a>
-                                <a href="https://github.com/noe2019/Lake_storage_prediction" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- <section id="banking" class="projects-section bg-white">
-        <div class="container">    
-            <h2 class="text-center">Banking</h2>
-            <div class="row">
-                <!-- Project 1 -->
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/loan_ic.jpg" class="card-img-top" alt="Automation of loan processing">
-                        <div class="card-body">
-                            <h5 class="card-title">Automated ML Solution for Loan Approval Decisions</h5>
-                            <p>Project Overview
-                                Developed a binary classification model to predict loan eligibility for applicants at SYL Bank (Australia), automating their manual loan approval process. The model evaluates key factors like credit score, income, debt, and credit history to determine whether an applicant should be granted a loan.
-                                
-                                🔹 Problem Type: Supervised Learning (Binary Classification)
-                                🔹 Algorithms Used: Gradient Boosting, XGBoost, Random Forest, Logistic Regression
-                                🔹 Key Libraries: Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn, SMOTE (for imbalance handling)
-                                🔹 Deployment: Pickle files for model reusability, Task Scheduler for automation</p>
-                            <div class="d-flex flex-wrap">
-                                <a href="https://acsess.onlinelibrary.wiley.com/doi/epdf/10.1002/agg2.20460" class="btn btn-primary mr-2 mb-2">Article 1</a>
-                                <a href="https://www.researchgate.net/publication/365322669_Investigating_the_effects_of_drought_and_lockdowns_on_smallholder_and_commercial_farming_agricultural_production_in_KwaZulu-Natal_using_remotely_sensed_data_Investigating_the_effects_of_drought_and_lo" class="btn btn-secondary mb-2">Article 2</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Project 2 -->
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/Hpp.jpg" class="card-img-top" alt="Satellite Data for Invasive Species Mapping">
-                        <div class="card-body">
-                            <h5 class="card-title">House Price</h5>
-                            <p>.</p>
-                            <div class="d-flex">
-                                <a href="https://drive.google.com/file/d/1pqSl5teMe3puq1RqqU6gwzns7rLO9H9f/view?usp=drive_link" class="btn btn-primary mr-2">Article</a>
-                                <a href="https://github.com/noe2019/Geospatial_Data_Collection" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Project 3 -->
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/cc.webp" class="card-img-top" alt="Storage Forecasting Project">
-                        <div class="card-body">
-                            <h5 class="card-title">Churn</h5>
-                            <p>.</p>
-                            <div class="d-flex">
-                                <a href="https://drive.google.com/file/d/1IUm6gZS1sqg7qPlrQwD0KnH2vtpy5e_-/view?usp=sharing" class="btn btn-primary mr-2">Article</a>
-                                <a href="https://github.com/noe2019/Lake_storage_prediction" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marketing Projects Section -->
-    <!-- <section id="marketing" class="projects-section bg-white">
-        <div class="container">
-            <h2 class="text-center">Marketing Analytics</h2>
-            <div class="row">
-                <!-- Project 1 -->
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/campaign-analysis.jpg" class="card-img-top" alt="Marketing Campaign Analysis">
-                        <div class="card-body">
-                            <h5 class="card-title">Marketing Campaign Analysis</h5>
-                            <p>Comprehensive analysis of marketing campaign performance across multiple channels with ROI calculations.</p>
-                            <p class="card-text"><strong>Tools:</strong> Python, SQL, Power BI, Google Analytics</p>
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-primary mr-2">Dashboard</a>
-                                <a href="#" class="btn btn-secondary">Case Study</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/customer-segmentation.jpg" class="card-img-top" alt="Customer Segmentation">
-                        <div class="card-body">
-                            <h5 class="card-title">Customer Segmentation</h5>
-                            <p>RFM analysis and clustering to identify high-value customer segments for targeted marketing.</p>
-                            <p class="card-text"><strong>Tools:</strong> Python (scikit-learn), Tableau, SQL</p>
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-primary mr-2">Visualization</a>
-                                <a href="#" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <!-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/sentiment-analysis.jpg" class="card-img-top" alt="Social Media Sentiment Analysis">
-                        <div class="card-body">
-                            <h5 class="card-title">Social Media Sentiment Analysis</h5>
-                            <p>Real-time sentiment analysis of brand mentions across social media platforms with alert system.</p>
-                            <p class="card-text"><strong>Tools:</strong> Python (NLTK, Transformers), AWS, Streamlit</p>
-                            <div class="d-flex">
-                                <a href="#" class="btn btn-primary mr-2">Web App</a>
-                                <a href="#" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --> 
-    
-    <!-- General Purpose Tools Section -->
-    <section class="projects-section bg-white">
-        <div class="container">
-            <h2 class="text-center">General Purpose Tools</h2>
-            <div class="row">
-                <!-- Project 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/pycaret.png" class="card-img-top" alt="AutoML Task Generalizer Tool">
-                        <div class="card-body">
-                            <h5 class="card-title">AutoML Task Generalizer</h5>
-                            <p>This tool profiles data, trains a classifier or regressor model using PyCaret, and saves the best model for deployment.</p>
-                            <p class="card-text"><strong>Tools:</strong> Python, PyCaret, Heroku</p>
-                            <div class="d-flex">
-                                <a href="https://taskgeneralizer-0f27fef8c121.herokuapp.com/" class="btn btn-primary mr-2">Web App</a>
-                                <a href="https://github.com/noe2019/AutoPredict_V1" class="btn btn-secondary">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visualization Projects Section -->
-    <section id="pbi" class="projects-section bg-light">
-        <div class="container">
-            <h2 class="text-center">Power BI</h2>
-            <div class="row">
-                <!-- Project 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/loan.gif" class="card-img-top"
-                            alt="Bank Loan Portfolio Analysis and Reporting">
-                        <div class="card-body">
-                            <h5 class="card-title">Loan Portfolio Analysis</h5>
-                            <p class="card-text">Tools: Python, Excel, SQL, Power BI</p>
-                            <div class="d-flex">
-                                <a href="https://app.powerbi.com/view?r=eyJrIjoiZDA1YmZiNzMtZGY5NS00NTJiLTgxYmItNjUyOGVmYWMxZWFkIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9"
-                                    class="btn btn-primary mr-2">Visualization</a>
-                                <a href="https://github.com/noe2019/Smart-Lending" class="btn btn-secondary">Github</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project 2 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/hr.gif" class="card-img-top" alt="Employee Job Satisfaction">
-                        <div class="card-body">
-                            <h5 class="card-title">Employees Job Satisfaction</h5>
-                            <p class="card-text">Tools: Excel, SQL, Tableau</p>
-                            <div class="d-flex">
-                                <a href="https://public.tableau.com/app/profile/noe.careme.fouotsa.manfouo/viz/HRAnalytics_17211814963320/HRAnalyticsDashboard"
-                                    class="btn btn-primary mr-2">Visualization</a>
-                                <a href="https://github.com/noe2019/Employees-Attrition-Analysis"
-                                    class="btn btn-secondary">Github</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="images/projects/ca.gif" class="card-img-top"
-                            alt="Churn Analysis">
-                        <div class="card-body">
-                            <h5 class="card-title">Churn Analysis</h5>
-                            <p class="card-text">Tools: Python, Excel, SQL, Power BI</p>
-                            <div class="d-flex">
-                                <a href="https://app.powerbi.com/view?r=eyJrIjoiYTQ4ODNhNTItMWVkZC00ZjQ1LTgzYjYtNDIwOWI0ZjZkOWIxIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9"
-                                    class="btn btn-primary mr-2">Visualization</a>
-                                <a href="https://github.com/noe2019/Telecom-Churn-Analysis-And-Prediction" class="btn btn-secondary">Github</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="publications-section">
-        <div class="container">
-            <h2 class="text-center">PUBLICATIONS</h2>
-            <ol>
-                <li>
-                    Noé Carème Fouotsa Manfouo, Linke Potgieter, Andrew Watson, Johanna H Nel (2023). A Comparison of the Statistical Downscaling and Long-Short-Term-Memory Artificial Neural Network Models for Long-Term Temperature and Precipitations Forecasting. Atmosphere 14 (4), 708.
-                    <a href="https://www.mdpi.com/2073-4433/14/4/708" target="_blank">Link</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                <li class="nav-item"><a class="nav-link" href="#healthcare">Healthcare</a></li>
+                <li class="nav-item"><a class="nav-link" href="#fs">Food Security</a></li>
+                <li class="nav-item"><a class="nav-link" href="#banking">Banking</a></li>
+                <li class="nav-item"><a class="nav-link" href="#pbi">Power BI</a></li>
+                <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
+                <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item ms-lg-2">
+                    <button id="darkToggle" aria-label="Toggle dark mode"><i class="fas fa-moon me-1"></i><span id="darkLabel">Dark</span></button>
                 </li>
-                <li>
-                    NC Fouotsa Manfouo, D. Von Fintel. (2022). Investigating the effects of drought and lockdowns on smallholder and commercial farming agricultural production in KwaZulu-Natal using remotely sensed data. Heliyon 8 (11). 
-                    <a href="https://www.cell.com/heliyon/fulltext/S2405-8440(22)02925-5" target="_blank">Link</a>
-                </li>
-                <li>
-                    Noé Carème Manfouo Fouotsa, Ruth Ndjaboue & Gerard Ngueta (2024). Race/Ethnicity and Other Predictors of Early-Onset Type 2 Diabetes Mellitus in the US Population.  Journal of Racial and Ethnic Health Disparities.
-                    <a href="https://link.springer.com/article/10.1007/s40615-024-01980-8" target="_blank">Link</a>
-                </li>
-                <li>
-                    Noé Carème Fouotsa Manfouo. (2024). Monitoring commercial and smallholder production inequalities during South Africa's lockdown using remotely sensed data. Agrosystems, Geosciences & Environment 7 (1), 1-10. 
-                    <a href="https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/agg2.20460" target="_blank">Link</a>
-                </li>
-                <li>
-                    Noé Carème Fouotsa Manfouo et al. (2024). Temporal trajectories of type 2 diabetes complications from inpatient data collected from
-                    2006 to 2021 at Centre Hospitalier Universitaire de Sherbrooke (CHUS). 
-                    <a href="https://drive.google.com/file/d/1WTc9uhVYihRsWnDoUZjFQGMY-u0xKI13/view?usp=sharing" target="_blank">Link</a>
-                </li>
-                <li>
-                    Noé Carème Fouotsa Manfouo et al. (2024). Application of classification models on Sentinel-2 images and tree stands shapefiles for invasive alien trees mapping in the Overberg region in South Africa, Geosciences & Environment 7 (1), 1-10. 
-                    <a href="https://drive.google.com/file/d/1VaEhWmG0JCpgV0rd93qnCvg4TlKptWTK/view?usp=drive_link" target="_blank">Link</a>
-                </li>
-            </ol>
+            </ul>
         </div>
-    </section>
+    </div>
+</nav>
 
-    <!-- Services Section -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <h2 class="text-center mb-5">Services</h2>
-            <div class="row">
-                <!-- Service 1: Data Visualization and Dashboard Development -->
-                <div class="col-md-4 mb-4">
-                    <div class="service-box p-4">
-                        <h4>Dashboard Development</h4>
-                        <p>Design, develop, and maintain interactive and insightful dashboards.</p>
-                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#serviceModal1">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <!-- Modal 1 -->
-                <div class="modal fade" id="serviceModal1" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel1" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="serviceModalLabel1">Data Visualization & Dashboard Development</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>I specialize in creating powerful data visualizations using tools like PowerBI. Learn how my dashboards can help your business make informed decisions.</p>
-                                <ul>
-                                    <li><strong>PowerBI Dashboards:</strong> Create and maintain interactive dashboards to visualize key business metrics.</li>
-                                    <li><strong>Integration:</strong> Integrate dashboards into your existing platforms for seamless access.</li>
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Hero -->
+<section id="about" class="about-section">
+    <div class="container">
+        <img src="images/about/Noé.png" alt="Noé Carème Fouotsa" loading="lazy">
+        <h1>Noé Carème Fouotsa</h1>
+        <p class="subtitle">Data Scientist &nbsp;·&nbsp; Machine Learning Engineer &nbsp;·&nbsp; Researcher</p>
+        <div class="hero-badges mb-3">
+            <span class="badge">Python</span><span class="badge">Machine Learning</span><span class="badge">Power BI</span>
+            <span class="badge">SQL</span><span class="badge">Azure</span><span class="badge">Streamlit</span>
+        </div>
+        <p class="bio">I am a Data Scientist with more than five years of experience helping organizations derive actionable insights from complex data. My work spans three core actions: designing and automating data pipelines for KPI measurement; building and deploying predictive models to support strategic decision-making; and building interactive dashboards to monitor business metrics in real time.</p>
+        <div class="d-flex justify-content-center flex-wrap gap-2">
+            <a href="#contact" class="btn btn-light fw-semibold px-4">Hire Me</a>
+            <a href="#pbi" class="btn btn-outline-light fw-semibold px-4">View Projects</a>
+            <a href="https://www.linkedin.com/in/noefouotsa/" class="btn btn-outline-light fw-semibold px-4" target="_blank" rel="noopener"><i class="fab fa-linkedin me-1"></i>LinkedIn CV</a>
+        </div>
+    </div>
+</section>
 
-                <!-- Service 2: Data Analysis and Reporting -->
-                <div class="col-md-4 mb-4">
-                    <div class="service-box p-4">
-                        <h4>Data Analysis & Reporting</h4>
-                        <p>Perform advanced statistical analyses to uncover patterns and trends in datasets.</p>
-                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#serviceModal2">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <!-- Modal 2 -->
-                <div class="modal fade" id="serviceModal2" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel2" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="serviceModalLabel2">Data Analysis & Reporting</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>From predictive modeling to in-depth reporting, discover how my data analysis services can uncover hidden insights in your data.</p>
-                                <ul>
-                                    <li><strong>Statistical Analysis:</strong> Uncover patterns and correlations with advanced statistical techniques.</li>
-                                    <li><strong>Predictive Modeling:</strong> Use data to forecast trends and make informed business decisions.</li>
-                                    <li><strong>Reporting:</strong> Present your data clearly and effectively, enabling action.</li>
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Stats -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row g-4 justify-content-center" id="statsRow">
+            <div class="col-6 col-md-3"><div class="stat-card" data-aos="fade-up" data-aos-delay="0"><div class="stat-number" data-target="5">0</div><div class="stat-label">Years of Experience</div></div></div>
+            <div class="col-6 col-md-3"><div class="stat-card" data-aos="fade-up" data-aos-delay="100"><div class="stat-number" data-target="6">0</div><div class="stat-label">Peer-Reviewed Publications</div></div></div>
+            <div class="col-6 col-md-3"><div class="stat-card" data-aos="fade-up" data-aos-delay="200"><div class="stat-number" data-target="12">0</div><div class="stat-label">Projects Deployed</div></div></div>
+            <div class="col-6 col-md-3"><div class="stat-card" data-aos="fade-up" data-aos-delay="300"><div class="stat-number" data-target="4">0</div><div class="stat-label">Certifications</div></div></div>
+        </div>
+    </div>
+</section>
 
-                <!-- Service 3: Database Management and Query Writing -->
-                <div class="col-md-4 mb-4">
-                    <div class="service-box p-4">
-                        <h4>Web Application</h4>
-                        <p>Build and deploy machine learning-based applications.</p>
-                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#serviceModal3">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <!-- Modal 3 -->
-                <div class="modal fade" id="serviceModal3" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel3" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="serviceModalLabel3">Web Application Development</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Build and deploy custom web applications with machine learning capabilities.</p>
-                                <ul>
-                                    <li><strong>Custom Web Apps:</strong> Develop tailored applications to meet your specific business needs.</li>
-                                    <li><strong>Machine Learning Integration:</strong> Incorporate predictive models into web applications.</li>
-                                    <li><strong>Deployment:</strong> Deploy applications on cloud platforms for accessibility.</li>
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 4: Training and Consultation -->
-                <div class="col-md-4 mb-4">
-                    <div class="service-box p-4">
-                        <h4>Training & Consultation</h4>
-                        <p>Provide training and consulting to enhance data literacy.</p>
-                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#serviceModal4">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <!-- Modal 4 -->
-                <div class="modal fade" id="serviceModal4" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel4" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="serviceModalLabel4">Training & Consultation</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Empower your team with the skills needed to harness data effectively. My training and consultation services cover everything from dashboard usage to advanced data analysis techniques.</p>
-                                <ul>
-                                    <li><strong>Dashboard Training:</strong> Learn how to use dashboards for data-driven decisions.</li>
-                                    <li><strong>Data Literacy Workshops:</strong> Improve analytical skills and data literacy across teams.</li>
-                                    <li><strong>Consulting Services:</strong> Strategic guidance to optimize data use for business growth.</li>
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 5: Custom Data Solutions -->
-                <div class="col-md-4 mb-4">
-                    <div class="service-box p-4">
-                        <h4>Custom Data Solutions</h4>
-                        <p>Develop tailored data solutions to address specific business needs.</p>
-                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#serviceModal5">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <!-- Modal 5 -->
-                <div class="modal fade" id="serviceModal5" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel5" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="serviceModalLabel5">Custom Data Solutions</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Get bespoke solutions that fit your unique business challenges. I provide custom data analysis, visualization, and workflow automation tailored to your needs.</p>
-                                <ul>
-                                    <li><strong>Tailored Data Solutions:</strong> Custom solutions that align with your business goals.</li>
-                                    <li><strong>Problem-Solving:</strong> Use data to solve complex business challenges.</li>
-                                    <li><strong>Automation:</strong> Streamline processes with data-driven automation.</li>
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 6: Research Support -->
-                <div class="col-md-4 mb-4">
-                    <div class="service-box p-4">
-                        <h4>Research Support</h4>
-                        <p>Provide data analysis support for academic research and publications.</p>
-                        <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#serviceModal6">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <!-- Modal 6 -->
-                <div class="modal fade" id="serviceModal6" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel6" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="serviceModalLabel6">Research and Publication Support</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Support your research projects with my data analysis expertise. I assist in everything from statistical modeling to preparing data-driven research publications.</p>
-                                <ul>
-                                    <li><strong>Academic Research:</strong> Support academic research with data analysis and visualization.</li>
-                                    <li><strong>Publication Assistance:</strong> Ensure accurate and impactful data-driven research publications.</li>
-                                    <li><strong>Statistical Modeling:</strong> Apply advanced statistical models for insightful research.</li>
-                                </ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Skills -->
+<section id="skills" class="skills-section">
+    <div class="container">
+        <p class="section-tag text-center">Expertise</p>
+        <h2 class="text-center section-heading">Skills &amp; Certifications</h2>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="0">
+                <div class="card text-center p-3"><div class="skill-icon"><i class="fab fa-python"></i></div>
+                <div class="card-body p-0 pt-2"><h5 class="card-title">Python</h5><p class="card-text small">PCAP™ – Certified Associate Python Programmer</p>
+                <a href="https://pythoninstitute.org/pcap" class="btn btn-outline-primary btn-sm mt-2" target="_blank" rel="noopener">Certificate</a></div></div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="card text-center p-3"><div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+                <div class="card-body p-0 pt-2"><h5 class="card-title">Data Visualization</h5><p class="card-text small">Microsoft Certified: Power BI Data Analyst Associate</p>
+                <a href="https://learn.microsoft.com/en-us/credentials/certifications/data-analyst-associate/" class="btn btn-outline-primary btn-sm mt-2" target="_blank" rel="noopener">Certificate</a></div></div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="card text-center p-3"><div class="skill-icon"><i class="fas fa-database"></i></div>
+                <div class="card-body p-0 pt-2"><h5 class="card-title">SQL &amp; Azure</h5><p class="card-text small">Microsoft Certified: Azure Data Engineer Associate</p>
+                <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-data-engineer/" class="btn btn-outline-primary btn-sm mt-2" target="_blank" rel="noopener">Certificate</a></div></div>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="card text-center p-3"><div class="skill-icon"><i class="fas fa-lightbulb"></i></div>
+                <div class="card-body p-0 pt-2"><h5 class="card-title">Data Storytelling</h5><p class="card-text small">Google Data Analytics Professional Certificate</p>
+                <a href="https://www.credly.com/badges/3e7c48c5-6a0e-4dd3-a605-ba241545c6e4" class="btn btn-outline-primary btn-sm mt-2" target="_blank" rel="noopener">Certificate</a></div></div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Contact Me Section -->
-    <section id="contact" class="contact-section text-center text-white bg-dark">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <div class="row">
-                <div class="col-lg-6">
-                    <p><i class="fas fa-envelope"></i> noecaremee@gmail.com</p>
-                </div>
-                <div class="col-lg-6">
-                    <p><i class="fas fa-phone"></i> +14383721711</p>
+<!-- Healthcare -->
+<section id="healthcare" class="projects-section bg-section">
+    <div class="container">
+        <p class="section-tag text-center">Domain</p>
+        <h2 class="text-center section-heading">Healthcare</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="card"><img src="images/projects/img.png" class="card-img-top" alt="AI Doctor" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">AI Doctor</h5><p class="small">Diagnostic tool that suggests medication and lifestyle recommendations based on patient symptoms.</p><p class="small"><strong>Tools:</strong> Python, Flask, Heroku</p></div>
+                <div class="d-flex gap-2 mt-2 flex-wrap">
+                    <a href="https://aidoctor-227700301703.herokuapp.com/" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Web App</a>
+                    <a href="https://github.com/noe2019/Medecine-Recommender" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card"><img src="images/projects/ed1 (2).webp" class="card-img-top" alt="Multiple Disease Prediction" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Multiple Disease Prediction</h5><p class="small">ML models for early diabetes, heart disease, and Parkinson's prediction served via two interactive web apps.</p><p class="small"><strong>Tools:</strong> Python, scikit-learn, TPOT, Docker, Streamlit</p></div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    <a href="https://et2dmapp.streamlit.app/" class="btn btn-primary btn-sm" target="_blank" rel="noopener">App 1</a>
+                    <a href="https://multiple-disease-prediction-aws-app-6gyzynvubis3ibywjrxj5x.streamlit.app/" class="btn btn-primary btn-sm" target="_blank" rel="noopener">App 2</a>
+                    <a href="https://www.researchgate.net/publication/379147208_Journal_of_Racial_and_Ethnic_Health_Disparities" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">Article</a>
+                    <a href="https://github.com/noe2019/Key-predictors_of_Early_Diabetes" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card"><img src="images/projects/dc1 (2).webp" class="card-img-top" alt="Diabetes Complications" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Diabetes Complications Sequences</h5><p class="small">Analysis and visualization of Type 2 Diabetes complication trajectories over time using graph analysis.</p><p class="small"><strong>Tools:</strong> Python, Graph Analysis, Visualization Libraries</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://drive.google.com/file/d/1SbSDD4WOGipqZzSe8JRCV84cHnl6hWq6/view?usp=sharing" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Poster</a>
+                    <a href="https://github.com/noe2019/T2DM_Complications_Trajectories" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Food Security -->
+<section id="fs" class="projects-section bg-surface">
+    <div class="container">
+        <p class="section-tag text-center">Domain</p>
+        <h2 class="text-center section-heading">Food Security</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="card"><img src="images/projects/agri (2).webp" class="card-img-top" alt="Food Security" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Food Security with Satellite Data</h5><p class="small">Monitoring impacts of drought and lockdowns on farming in KwaZulu-Natal using remotely sensed data.</p></div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    <a href="https://acsess.onlinelibrary.wiley.com/doi/epdf/10.1002/agg2.20460" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Article 1</a>
+                    <a href="https://www.researchgate.net/publication/365322669_Investigating_the_effects_of_drought_and_lockdowns_on_smallholder_and_commercial_farming_agricultural_production_in_KwaZulu-Natal_using_remotely_sensed_data_Investigating_the_effects_of_drought_and_lo" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">Article 2</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card"><img src="images/projects/inv (2).webp" class="card-img-top" alt="Invasive Species" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Invasive Species Mapping via Satellite</h5><p class="small">Classification models on Sentinel-2 imagery to map invasive alien trees in South Africa's Overberg region.</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://drive.google.com/file/d/1pqSl5teMe3puq1RqqU6gwzns7rLO9H9f/view?usp=drive_link" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Article</a>
+                    <a href="https://github.com/noe2019/Geospatial_Data_Collection" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card"><img src="images/projects/streamflow.webp" class="card-img-top" alt="Water Storage Forecasting" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Water Storage Forecasting</h5><p class="small">ML models to predict water reservoir storage levels using historical satellite and climate data.</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://drive.google.com/file/d/1IUm6gZS1sqg7qPlrQwD0KnH2vtpy5e_-/view?usp=sharing" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Article</a>
+                    <a href="https://github.com/noe2019/Lake_storage_prediction" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Banking -->
+<section id="banking" class="projects-section bg-section">
+    <div class="container">
+        <p class="section-tag text-center">Domain</p>
+        <h2 class="text-center section-heading">Banking &amp; Finance</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="card"><img src="images/projects/loan_ic.jpg" class="card-img-top" alt="Loan Approval" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Automated Loan Approval Decisions</h5><p class="small">Binary classification model predicting loan eligibility for SYL Bank (Australia), automating manual approval using credit score, income, and debt features.</p><p class="small"><strong>Tools:</strong> Python, XGBoost, Random Forest, scikit-learn, SMOTE</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://github.com/noe2019/Smart-Lending" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card"><img src="images/projects/Hpp.jpg" class="card-img-top" alt="House Price Prediction" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">House Price Prediction</h5><p class="small">Regression model estimating residential property values based on structural features, location, and market trends with a deployable web interface.</p><p class="small"><strong>Tools:</strong> Python, Random Forest, Gradient Boosting, Streamlit</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://github.com/noe2019" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card"><img src="images/projects/cc.webp" class="card-img-top" alt="Credit Card Churn" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Credit Card Churn Prediction</h5><p class="small">Classification model identifying customers likely to close their accounts, enabling proactive retention strategies.</p><p class="small"><strong>Tools:</strong> Python, LightGBM, SHAP, Power BI</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://github.com/noe2019/Telecom-Churn-Analysis-And-Prediction" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Marketing -->
+<section id="marketing" class="projects-section bg-surface">
+    <div class="container">
+        <p class="section-tag text-center">Domain</p>
+        <h2 class="text-center section-heading">Marketing Analytics</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="card"><img src="images/projects/da.jfif" class="card-img-top" alt="Campaign Analysis" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Marketing Campaign Analysis</h5><p class="small">Cross-channel campaign performance analysis with ROI calculations, audience segmentation, and insights for budget optimization.</p><p class="small"><strong>Tools:</strong> Python, SQL, Power BI, Google Analytics</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://github.com/noe2019" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card"><img src="images/projects/ccc.webp" class="card-img-top" alt="Customer Segmentation" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Customer Segmentation</h5><p class="small">RFM analysis and K-Means clustering to identify high-value customer segments for targeted marketing and retention programs.</p><p class="small"><strong>Tools:</strong> Python, scikit-learn, Tableau, SQL</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://github.com/noe2019" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card"><img src="images/projects/img3.jpg" class="card-img-top" alt="Sentiment Analysis" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Social Media Sentiment Analysis</h5><p class="small">Real-time sentiment analysis of brand mentions using NLP transformers, with automated alerting on negative sentiment spikes.</p><p class="small"><strong>Tools:</strong> Python, HuggingFace Transformers, Streamlit</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://github.com/noe2019" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- General Purpose Tools -->
+<section class="projects-section bg-section">
+    <div class="container">
+        <p class="section-tag text-center">Tools</p>
+        <h2 class="text-center section-heading">General Purpose Tools</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="card"><img src="images/projects/pycaret.png" class="card-img-top" alt="AutoML" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">AutoML Task Generalizer</h5><p class="small">Profiles data, trains the best classifier or regressor using PyCaret, and saves the model ready for deployment.</p><p class="small"><strong>Tools:</strong> Python, PyCaret, Heroku</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://taskgeneralizer-0f27fef8c121.herokuapp.com/" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Web App</a>
+                    <a href="https://github.com/noe2019/AutoPredict_V1" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Power BI -->
+<section id="pbi" class="projects-section bg-surface">
+    <div class="container">
+        <p class="section-tag text-center">Visualization</p>
+        <h2 class="text-center section-heading">Power BI &amp; Dashboards</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="card"><img src="images/projects/loan_opt.gif" class="card-img-top" alt="Loan Portfolio" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Loan Portfolio Analysis</h5><p class="small">End-to-end bank loan analysis and reporting with interactive Power BI dashboards.</p><p class="small"><strong>Tools:</strong> Python, Excel, SQL, Power BI</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://app.powerbi.com/view?r=eyJrIjoiZDA1YmZiNzMtZGY5NS00NTJiLTgxYmItNjUyOGVmYWMxZWFkIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Dashboard</a>
+                    <a href="https://github.com/noe2019/Smart-Lending" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card"><img src="images/projects/hr_opt.gif" class="card-img-top" alt="Employee Satisfaction" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Employee Job Satisfaction</h5><p class="small">HR analytics dashboard tracking attrition drivers and job satisfaction across departments.</p><p class="small"><strong>Tools:</strong> Excel, SQL, Tableau</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://public.tableau.com/app/profile/noe.careme.fouotsa.manfouo/viz/HRAnalytics_17211814963320/HRAnalyticsDashboard" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Dashboard</a>
+                    <a href="https://github.com/noe2019/Employees-Attrition-Analysis" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card"><img src="images/projects/ca_opt.gif" class="card-img-top" alt="Churn Analysis" loading="lazy">
+                <div class="card-body"><div><h5 class="card-title">Churn Analysis</h5><p class="small">Telecom customer churn prediction combined with interactive Power BI reporting for business teams.</p><p class="small"><strong>Tools:</strong> Python, Excel, SQL, Power BI</p></div>
+                <div class="d-flex gap-2 mt-2">
+                    <a href="https://app.powerbi.com/view?r=eyJrIjoiYTQ4ODNhNTItMWVkZC00ZjQ1LTgzYjYtNDIwOWI0ZjZkOWIxIiwidCI6ImI1NWIwM2YzLTIyZmUtNDAyNi1hM2Y0LWQ2NTVjOThiNDAyMCJ9" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Dashboard</a>
+                    <a href="https://github.com/noe2019/Telecom-Churn-Analysis-And-Prediction" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener">GitHub</a>
+                </div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Publications -->
+<section id="publications" class="publications-section">
+    <div class="container">
+        <p class="section-tag text-center">Research</p>
+        <h2 class="text-center section-heading">Publications</h2>
+        <ol data-aos="fade-up">
+            <li>Noé Carème Fouotsa Manfouo, Linke Potgieter, Andrew Watson, Johanna H Nel (2023). <em>A Comparison of the Statistical Downscaling and Long-Short-Term-Memory Artificial Neural Network Models for Long-Term Temperature and Precipitations Forecasting.</em> Atmosphere 14(4), 708. <a href="https://www.mdpi.com/2073-4433/14/4/708" target="_blank" rel="noopener">→ Read</a></li>
+            <li>NC Fouotsa Manfouo, D. Von Fintel (2022). <em>Investigating the effects of drought and lockdowns on smallholder and commercial farming agricultural production in KwaZulu-Natal using remotely sensed data.</em> Heliyon 8(11). <a href="https://www.cell.com/heliyon/fulltext/S2405-8440(22)02925-5" target="_blank" rel="noopener">→ Read</a></li>
+            <li>Noé Carème Manfouo Fouotsa, Ruth Ndjaboue &amp; Gerard Ngueta (2024). <em>Race/Ethnicity and Other Predictors of Early-Onset Type 2 Diabetes Mellitus in the US Population.</em> Journal of Racial and Ethnic Health Disparities. <a href="https://link.springer.com/article/10.1007/s40615-024-01980-8" target="_blank" rel="noopener">→ Read</a></li>
+            <li>Noé Carème Fouotsa Manfouo (2024). <em>Monitoring commercial and smallholder production inequalities during South Africa's lockdown using remotely sensed data.</em> Agrosystems, Geosciences &amp; Environment 7(1), 1–10. <a href="https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/agg2.20460" target="_blank" rel="noopener">→ Read</a></li>
+            <li>Noé Carème Fouotsa Manfouo et al. (2024). <em>Temporal trajectories of type 2 diabetes complications from inpatient data collected from 2006 to 2021 at Centre Hospitalier Universitaire de Sherbrooke (CHUS).</em> <a href="https://drive.google.com/file/d/1WTc9uhVYihRsWnDoUZjFQGMY-u0xKI13/view?usp=sharing" target="_blank" rel="noopener">→ Read</a></li>
+            <li>Noé Carème Fouotsa Manfouo et al. (2024). <em>Application of classification models on Sentinel-2 images and tree stands shapefiles for invasive alien trees mapping in the Overberg region, South Africa.</em> <a href="https://drive.google.com/file/d/1VaEhWmG0JCpgV0rd93qnCvg4TlKptWTK/view?usp=drive_link" target="_blank" rel="noopener">→ Read</a></li>
+        </ol>
+    </div>
+</section>
+
+<!-- Blog -->
+<section id="blog" class="blog-section">
+    <div class="container">
+        <p class="section-tag text-center">Writing</p>
+        <h2 class="text-center section-heading">Latest Articles</h2>
+        <div class="row g-4 mb-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="card h-100"><div class="card-body d-flex flex-column justify-content-between p-4">
+                    <div><p class="blog-cat mb-2"><i class="fas fa-brain me-1"></i>Machine Learning</p>
+                    <h5 class="blog-title">Building an AutoML Pipeline with PyCaret: From Data to Deployment</h5>
+                    <p class="blog-date mt-2"><i class="fas fa-calendar-alt me-1"></i>Medium · Data Science</p></div>
+                    <a href="https://medium.com/@noe.fouotsa" class="btn btn-outline-primary btn-sm mt-3" target="_blank" rel="noopener">Read Article</a>
+                </div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100"><div class="card-body d-flex flex-column justify-content-between p-4">
+                    <div><p class="blog-cat mb-2"><i class="fas fa-satellite me-1"></i>Remote Sensing</p>
+                    <h5 class="blog-title">Using Satellite Imagery to Monitor Agricultural Production in Sub-Saharan Africa</h5>
+                    <p class="blog-date mt-2"><i class="fas fa-calendar-alt me-1"></i>Medium · Data Science</p></div>
+                    <a href="https://medium.com/@noe.fouotsa" class="btn btn-outline-primary btn-sm mt-3" target="_blank" rel="noopener">Read Article</a>
+                </div></div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100"><div class="card-body d-flex flex-column justify-content-between p-4">
+                    <div><p class="blog-cat mb-2"><i class="fas fa-heartbeat me-1"></i>Healthcare AI</p>
+                    <h5 class="blog-title">Predicting Type 2 Diabetes: Race, Ethnicity and Machine Learning in Clinical Data</h5>
+                    <p class="blog-date mt-2"><i class="fas fa-calendar-alt me-1"></i>Medium · Data Science</p></div>
+                    <a href="https://medium.com/@noe.fouotsa" class="btn btn-outline-primary btn-sm mt-3" target="_blank" rel="noopener">Read Article</a>
+                </div></div>
+            </div>
+        </div>
+        <div class="text-center" data-aos="fade-up">
+            <a href="https://medium.com/@noe.fouotsa" class="btn btn-primary px-5" target="_blank" rel="noopener"><i class="fab fa-medium me-2"></i>All Articles on Medium</a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="testimonials-section">
+    <div class="container">
+        <p class="section-tag text-center">Social proof</p>
+        <h2 class="text-center section-heading">What People Say</h2>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p>"Noé delivered an exceptionally accurate predictive model for our clinical data. His ability to translate complex ML concepts into actionable insights for our medical team was remarkable."</p>
+                    <div class="d-flex align-items-center gap-3 mt-3">
+                        <div class="testimonial-avatar">DR</div>
+                        <div><div class="author">Dr. — <span class="badge-wip">Add name</span></div><div class="author-role">Research Lead · <span class="badge-wip">Add org</span></div></div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Contact Form -->
-            <div class="contact-form mt-4">
-                <form action="https://formspree.io/f/xzzpozro" method="POST">
-                    <input type="hidden" name="_redirect" value="https://noe2019.github.io/DA-Portfolio-Website/">
-                    <div class="form-group">
-                        <label for="name" class="text-dark">Name *</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p>"Working with Noé on our Power BI dashboards was a game-changer. The dashboards he built are now used daily across our entire analytics team to drive key decisions."</p>
+                    <div class="d-flex align-items-center gap-3 mt-3">
+                        <div class="testimonial-avatar">AM</div>
+                        <div><div class="author">— <span class="badge-wip">Add name</span></div><div class="author-role">Analytics Manager · <span class="badge-wip">Add org</span></div></div>
                     </div>
-                    <div class="form-group">
-                        <label for="email" class="text-dark">Email Address *</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message" class="text-dark">Message *</label>
-                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </form>
+                </div>
             </div>
-
-            <!-- Social Links -->
-            <div class="row mt-4">
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <a href="https://www.linkedin.com/in/noefouotsa/" target="_blank" class="text-white">
-                        <i class="fab fa-linkedin fa-2x mb-2"></i><br>
-                        LinkedIn
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <a href="https://x.com/NoeFouotsa" target="_blank" class="text-white">
-                        <i class="fab fa-twitter fa-2x mb-2"></i><br>
-                        Twitter
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <a href="https://github.com/noe2019" target="_blank" class="text-white">
-                        <i class="fab fa-github fa-2x mb-2"></i><br>
-                        GitHub
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <a href="https://medium.com/@noe.fouotsa" target="_blank" class="text-white">
-                        <i class="fab fa-medium fa-2x mb-2"></i><br>
-                        Medium
-                    </a>
-                </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <a href="https://www.youtube.com/@No%C3%A9Fouotsa" target="_blank" class="text-white">
-                        <i class="fab fa-youtube fa-2x mb-2"></i><br>
-                        YouTube
-                    </a>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p>"Noé's expertise in geospatial data analysis helped us identify invasive species patterns we had missed for years. Highly recommended for any research project."</p>
+                    <div class="d-flex align-items-center gap-3 mt-3">
+                        <div class="testimonial-avatar">PR</div>
+                        <div><div class="author">Prof. — <span class="badge-wip">Add name</span></div><div class="author-role">Environmental Science · <span class="badge-wip">Add uni</span></div></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="text-center" data-aos="fade-up">
+            <a href="https://www.linkedin.com/in/noefouotsa/" class="btn btn-outline-primary px-5" target="_blank" rel="noopener"><i class="fab fa-linkedin me-2"></i>View LinkedIn Recommendations</a>
+        </div>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Noé Fouotsa. All Rights Reserved.</p>
-    </footer>
+<!-- Services -->
+<section id="services" class="services-section bg-surface">
+    <div class="container">
+        <p class="section-tag text-center">What I offer</p>
+        <h2 class="text-center section-heading mb-5">Services</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0"><div class="service-box"><i class="fas fa-chart-pie fa-2x text-primary mb-3"></i><h4>Dashboard Development</h4><p class="small">Design, develop, and maintain interactive and insightful dashboards.</p><button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#sm1">Learn More</button></div></div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="service-box"><i class="fas fa-magnifying-glass-chart fa-2x text-primary mb-3"></i><h4>Data Analysis &amp; Reporting</h4><p class="small">Advanced statistical analyses to uncover patterns and trends.</p><button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#sm2">Learn More</button></div></div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="service-box"><i class="fas fa-globe fa-2x text-primary mb-3"></i><h4>Web Application</h4><p class="small">Build and deploy machine learning-powered web applications.</p><button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#sm3">Learn More</button></div></div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0"><div class="service-box"><i class="fas fa-chalkboard-user fa-2x text-primary mb-3"></i><h4>Training &amp; Consultation</h4><p class="small">Workshops and consulting to enhance data literacy in your team.</p><button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#sm4">Learn More</button></div></div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="service-box"><i class="fas fa-gears fa-2x text-primary mb-3"></i><h4>Custom Data Solutions</h4><p class="small">Tailored solutions to address specific business challenges.</p><button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#sm5">Learn More</button></div></div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="service-box"><i class="fas fa-flask fa-2x text-primary mb-3"></i><h4>Research Support</h4><p class="small">Data analysis support for academic research and peer-reviewed publications.</p><button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#sm6">Learn More</button></div></div>
+        </div>
+    </div>
+</section>
 
-    <!-- Bootstrap JS and dependencies (jQuery and Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Service Modals -->
+<div class="modal fade" id="sm1" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Dashboard Development</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Power BI and Tableau dashboards tailored to your business metrics.</p><ul><li><strong>Power BI Dashboards:</strong> Interactive dashboards for key metrics.</li><li><strong>Integration:</strong> Embed into existing platforms.</li><li><strong>Automation:</strong> Scheduled refresh and reporting pipelines.</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+<div class="modal fade" id="sm2" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Data Analysis &amp; Reporting</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Uncover hidden insights from your data through advanced analysis.</p><ul><li><strong>Statistical Analysis:</strong> Patterns and correlations in your data.</li><li><strong>Predictive Modeling:</strong> Forecast trends and support decisions.</li><li><strong>Reporting:</strong> Clear, actionable data stories.</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+<div class="modal fade" id="sm3" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Web Application Development</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Custom ML-powered web applications, built and deployed.</p><ul><li><strong>Custom Web Apps:</strong> Tailored for your business needs.</li><li><strong>ML Integration:</strong> Predictive models in web interfaces.</li><li><strong>Cloud Deployment:</strong> Heroku, Streamlit Cloud, or AWS.</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+<div class="modal fade" id="sm4" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Training &amp; Consultation</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Empower your team with the skills needed to harness data.</p><ul><li><strong>Dashboard Training:</strong> Data-driven decision making.</li><li><strong>Data Literacy Workshops:</strong> Build analytical skills.</li><li><strong>Consulting:</strong> Strategic data guidance.</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+<div class="modal fade" id="sm5" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Custom Data Solutions</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Bespoke solutions for your unique business challenges.</p><ul><li><strong>Tailored Analysis:</strong> Aligned with your goals.</li><li><strong>Problem-Solving:</strong> Data to tackle complex challenges.</li><li><strong>Automation:</strong> Data-driven process automation.</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+<div class="modal fade" id="sm6" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Research &amp; Publication Support</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p>Expert data analysis support for academic research.</p><ul><li><strong>Academic Research:</strong> Analysis and visualization support.</li><li><strong>Publication Assistance:</strong> Impactful data-driven publications.</li><li><strong>Statistical Modeling:</strong> Advanced models for research.</li></ul></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <p class="section-tag text-center" style="color:#60a5fa">Get in touch</p>
+        <h2 class="text-center section-heading">Contact Me</h2>
+        <div class="row justify-content-center mb-4 g-3">
+            <div class="col-auto"><p class="mb-0"><i class="fas fa-envelope me-2" style="color:#60a5fa"></i><a href="mailto:noecaremee@gmail.com">noecaremee@gmail.com</a></p></div>
+            <div class="col-auto"><p class="mb-0"><i class="fas fa-phone me-2" style="color:#60a5fa"></i><a href="tel:+14383721711">+1 438 372 1711</a></p></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-7" data-aos="fade-up">
+                <div class="contact-form">
+                    <form action="https://formspree.io/f/xzzpozro" method="POST">
+                        <input type="hidden" name="_redirect" value="https://noe2019.github.io/DA-Portfolio-Website/">
+                        <div class="mb-3"><label for="name" class="form-label fw-semibold">Name <span class="text-danger">*</span></label><input type="text" id="name" name="name" class="form-control" required></div>
+                        <div class="mb-3"><label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label><input type="email" id="email" name="email" class="form-control" required></div>
+                        <div class="mb-3"><label for="message" class="form-label fw-semibold">Message <span class="text-danger">*</span></label><textarea id="message" name="message" class="form-control" rows="5" required></textarea></div>
+                        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5 g-4">
+            <div class="col-auto"><a href="https://www.linkedin.com/in/noefouotsa/" class="social-link" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a></div>
+            <div class="col-auto"><a href="https://x.com/NoeFouotsa" class="social-link" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i>X</a></div>
+            <div class="col-auto"><a href="https://github.com/noe2019" class="social-link" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a></div>
+            <div class="col-auto"><a href="https://medium.com/@noe.fouotsa" class="social-link" target="_blank" rel="noopener"><i class="fab fa-medium"></i>Medium</a></div>
+            <div class="col-auto"><a href="https://www.youtube.com/@No%C3%A9Fouotsa" class="social-link" target="_blank" rel="noopener"><i class="fab fa-youtube"></i>YouTube</a></div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p class="mb-0">&copy; <span id="currentYear"></span> Noé Carème Fouotsa. All Rights Reserved.</p>
+</footer>
+
+<!-- Scroll-to-top -->
+<button id="scrollToTop" aria-label="Back to top" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({ duration: 600, once: true, easing: 'ease-out-cubic' });
+
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Dark mode
+    const html = document.documentElement;
+    const toggleBtn = document.getElementById('darkToggle');
+    const toggleBtnMobile = document.getElementById('darkToggleMobile');
+    const darkLabel = document.getElementById('darkLabel');
+
+    function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        const isDark = theme === 'dark';
+        const icon = isDark ? 'fa-sun' : 'fa-moon';
+        if (toggleBtn) { toggleBtn.querySelector('i').className = `fas ${icon} me-1`; if (darkLabel) darkLabel.textContent = isDark ? 'Light' : 'Dark'; }
+        if (toggleBtnMobile) toggleBtnMobile.innerHTML = `<i class="fas ${icon}"></i>`;
+    }
+
+    const saved = localStorage.getItem('theme');
+    const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(saved || (prefDark ? 'dark' : 'light'));
+
+    function toggleTheme() { applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+    if (toggleBtn) toggleBtn.addEventListener('click', toggleTheme);
+    if (toggleBtnMobile) toggleBtnMobile.addEventListener('click', toggleTheme);
+
+    // Scroll-to-top
+    const scrollBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', window.scrollY > 400));
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link[href^="#"]');
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id)); });
+    }, { rootMargin: '-60px 0px -50% 0px' });
+    sections.forEach(s => navObserver.observe(s));
+
+    // Close mobile navbar on click
+    navLinks.forEach(l => l.addEventListener('click', () => {
+        const c = document.getElementById('navbarNav');
+        if (c.classList.contains('show')) document.querySelector('.navbar-toggler').click();
+    }));
+
+    // Stats counter
+    let statsAnimated = false;
+    function animateCounters() {
+        if (statsAnimated) return; statsAnimated = true;
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+            const target = parseInt(el.getAttribute('data-target'));
+            let current = 0;
+            const timer = setInterval(() => {
+                current = Math.min(current + Math.ceil(target / 60), target);
+                el.textContent = current + '+';
+                if (current >= target) clearInterval(timer);
+            }, 25);
+        });
+    }
+    const statsRow = document.getElementById('statsRow');
+    if (statsRow) new IntersectionObserver(e => { if (e[0].isIntersecting) animateCounters(); }, { threshold: 0.3 }).observe(statsRow);
+</script>
 </body>
-
 </html>
